@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>REMI — Keeper Website</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f7f5f2;
+      color: #333;
+    }
+
+    header {
+      background: white;
+      padding: 20px;
+      border-bottom: 1px solid #ddd;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .header-inner {
+      max-width: 1100px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    nav {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    nav button {
+      border: none;
+      background: transparent;
+      padding: 8px 10px;
+      cursor: pointer;
+      font-size: 15px;
+    }
+
+    nav button:hover {
+      background: #eee;
+      border-radius: 8px;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: auto;
+      padding: 35px 20px;
+    }
+
+    .hero {
+      background: white;
+      padding: 35px;
+      border-radius: 18px;
+      margin-bottom: 30px;
+    }
+
+    .hero h1 {
+      margin-top: 0;
+      font-size: 36px;
+    }
+
+    .hero p {
+      font-size: 18px;
+      line-height: 1.6;
+    }
+
+    .language {
+      display: flex;
+      gap: 6px;
+      margin-top: 15px;
+    }
+
+    .language button {
+      border: 1px solid #ccc;
+      background: white;
+      border-radius: 8px;
+      padding: 6px 10px;
+      cursor: pointer;
+    }
+
+    .language button.active {
+      background: #333;
+      color: white;
+    }
+
+    h2 {
+      margin-top: 35px;
+    }
+
+    .search {
+      width: 100%;
+      padding: 14px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+
+    .filters {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    select {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      background: white;
+    }
+
+    .cats {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .cat {
+      background: white;
+      border-radius: 16px;
+      overflow: hidden;
+      cursor: pointer;
+      border: 1px solid #e5e5e5;
+      transition: transform 0.15s;
+    }
+
+    .cat:hover {
+      transform: translateY(-3px);
+    }
+
+    .cat-photo {
+      height: 210px;
+      background: #ddd;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 50px;
+    }
+
+    .cat-info {
+      padding: 15px;
+    }
+
+    .cat-info h3 {
+      margin: 0 0 7px;
+    }
+
+    .cat-info p {
+      margin: 4px 0;
+      color: #666;
+    }
+
+    .guide {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 15px;
+    }
+
+    .guide-card {
+      background: white;
+      padding: 20px;
+      border-radius: 14px;
+      border: 1px solid #e5e5e5;
+    }
+
+    .guide-card h3 {
+      margin-top: 0;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      color: #777;
+    }
+
+    @media (max-width: 650px) {
+      .header-inner {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .hero h1 {
+        font-size: 28px;
+      }
+
+      .hero {
+        padding: 25px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="header-inner">
+
+    <div class="logo">
+      🐱 REMI
+    </div>
+
+    <nav>
+      <button onclick="showSection('cats')">🐾 Cats</button>
+      <button onclick="showSection('guide')">📖 Keeper Guide</button>
+    </nav>
+
+  </div>
+</header>
+
+<main>
+
+  <section class="hero">
+    <h1>Kaķu palīdzības centrs REMI</h1>
+
+    <p>
+      Internal website for REMI cat keepers and volunteers.
+    </p>
+
+    <div class="language">
+      <button class="active">🇱🇻 LV</button>
+      <button>🇷🇺 RU</button>
+      <button>🇬🇧 EN</button>
+    </div>
+  </section>
+
+
+  <!-- CATS -->
+
+  <section id="cats">
+
+    <h2>🐾 All Cats</h2>
+
+    <input
+      class="search"
+      id="search"
+      type="text"
+      placeholder="🔍 Search by cat name..."
+      oninput="filterCats()"
+    >
+
+    <div class="filters">
+
+      <select id="roomFilter" onchange="filterCats()">
+        <option value="">All rooms</option>
+        <option value="1">Room 1</option>
+        <option value="2">Room 2</option>
+        <option value="3">Room 3</option>
+      </select>
+
+      <select id="sexFilter" onchange="filterCats()">
+        <option value="">Male & Female</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+      </select>
+
+      <select id="sortCats" onchange="sortCats()">
+        <option value="name">Name A–Z</option>
+        <option value="age">Age</option>
+      </select>
+
+    </div>
+
+    <div class="cats" id="catList">
+
+      <div class="cat" data-name="Muris" data-room="3" data-sex="Male" data-age="4">
+        <div class="cat-photo">🐱</div>
+        <div class="cat-info">
+          <h3>Muris</h3>
+          <p>♂ Male · 4 years</p>
+          <p>Room 3</p>
+        </div>
+      </div>
+
+      <div class="cat" data-name="Minka" data-room="1" data-sex="Female" data-age="2">
+        <div class="cat-photo">🐱</div>
+        <div class="cat-info">
+          <h3>Minka</h3>
+          <p>♀ Female · 2 years</p>
+          <p>Room 1</p>
+        </div>
+      </div>
+
+      <div class="cat" data-name="Pūka" data-room="2" data-sex="Female" data-age="8">
+        <div class="cat-photo">🐱</div>
+        <div class="cat-info">
+          <h3>Pūka</h3>
+          <p>♀ Female · 8 years</p>
+          <p>Room 2</p>
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- KEEPER GUIDE -->
+
+  <section id="guide" style="display:none">
+
+    <h2>📖 Keeper Guide</h2>
+
+    <p>
+      Everything REMI keepers need to know.
+    </p>
+
+    <div class="guide">
+
+      <div class="guide-card">
+        <h3>🌅 Daily Routine</h3>
+        <p>Morning and evening routines for the cats.</p>
+      </div>
+
+      <div class="guide-card">
+        <h3>🍽️ Feeding</h3>
+        <p>Food, water and feeding procedures.</p>
+      </div>
+
+      <div class="guide-card">
+        <h3>🚽 Litter</h3>
+        <p>Litter box cleaning and hygiene.</p>
+      </div>
+
+      <div class="guide-card">
+        <h3>🧹 Cleaning</h3>
+        <p>Cleaning procedures and hygiene rules.</p>
+      </div>
+
+      <div class="guide-card">
+        <h3>😺 Behaviour</h3>
+        <p>Understanding and handling different cats.</p>
+      </div>
+
+      <div class="guide-card">
+        <h3>💊 Medication</h3>
+        <p>Important medication instructions.</p>
+      </div>
+
+      <div class="guide-card">
+        <h3>🩺 Health</h3>
+        <p>Things keepers should watch for.</p>
+      </div>
+
+      <div class="guide-card">
+        <h3>🚨 Emergencies</h3>
+        <p>What to do when something is wrong.</p>
+      </div>
+
+    </div>
+
+  </section>
+
+</main>
+
+<footer>
+  Kaķu palīdzības centrs REMI
+</footer>
+
+
+<script>
+
+function showSection(section) {
+
+  document.getElementById("cats").style.display =
+    section === "cats" ? "block" : "none";
+
+  document.getElementById("guide").style.display =
+    section === "guide" ? "block" : "none";
+
+  window.scrollTo(0, 0);
+}
+
+
+function filterCats() {
+
+  const search =
+    document.getElementById("search").value.toLowerCase();
+
+  const room =
+    document.getElementById("roomFilter").value;
+
+  const sex =
+    document.getElementById("sexFilter").value;
+
+  const cats =
+    document.querySelectorAll(".cat");
+
+  cats.forEach(cat => {
+
+    const name =
+      cat.dataset.name.toLowerCase();
+
+    const matchesSearch =
+      name.includes(search);
+
+    const matchesRoom =
+      !room || cat.dataset.room === room;
+
+    const matchesSex =
+      !sex || cat.dataset.sex === sex;
+
+    cat.style.display =
+      matchesSearch && matchesRoom && matchesSex
+      ? "block"
+      : "none";
+
+  });
+}
+
+
+function sortCats() {
+
+  const list =
+    document.getElementById("catList");
+
+  const cats =
+    Array.from(list.querySelectorAll(".cat"));
+
+  const sort =
+    document.getElementById("sortCats").value;
+
+  cats.sort((a, b) => {
+
+    if (sort === "name") {
+      return a.dataset.name.localeCompare(
+        b.dataset.name
+      );
+    }
+
+    return Number(a.dataset.age) -
+           Number(b.dataset.age);
+
+  });
+
+  cats.forEach(cat => list.appendChild(cat));
+
+}
+
+</script>
+
+</body>
+</html>
