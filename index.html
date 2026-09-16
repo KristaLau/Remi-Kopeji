@@ -89,7 +89,8 @@ oninput="showCats()">
 <!-- // KAĶU KĀRTOŠANA -->
 <select id="sort" onchange="showCats()">
 <option value="name">Vārds A–Z</option>
-<option value="age">Vecums</option>
+<option value="oldest">Vecākais → jaunākais</option>
+<option value="youngest">Jaunākais → vecākais</option>
 </select>
 
 </div>
@@ -174,15 +175,16 @@ health:"FIV/FeLV -/-",
 notes:"No Slokas patversmes."
 },
 
-Minka:{
-name:"Minka",
-sex:"Kaķene",
-birthDate:"2024-03-20",
+Begemots:{
+name:"Begemots",
+sex:"Runcis",
+birthDate:"2019-02-01",
+photo:"Begemots.png",
 room:"1",
-character:"Minka ir mierīga un mīļa.",
-feeding:"Barot saskaņā ar REMI noteikto barošanas kārtību.",
-health:"Nav medikamentu.",
-notes:"Patīk mierīga uzmanība."
+character:"Mierīgs",
+feeding:"-",
+health:"Imūndeficīts",
+notes:"No Slokas patversmes"
 },
 
 Pūka:{
@@ -266,10 +268,17 @@ list.sort((a,b)=>a.name.localeCompare(b.name));
 }
 
 
-/* // KĀRTO KAĶUS PĒC VECUMA */
-if(sort==="age"){
+/* // KĀRTO KAĶUS NO VECĀKĀ UZ JAUNĀKO */
+if(sort==="oldest"){
 list.sort((a,b)=>
 new Date(a.birthDate)-new Date(b.birthDate)
+);
+}
+
+/* // KĀRTO KAĶUS NO JAUNĀKĀ UZ VECĀKO */
+if(sort==="youngest"){
+list.sort((a,b)=>
+new Date(b.birthDate)-new Date(a.birthDate)
 );
 }
 
