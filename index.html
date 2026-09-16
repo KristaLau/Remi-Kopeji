@@ -33,6 +33,7 @@ input,select{padding:12px;border:1px solid #ccc;border-radius:8px;font-size:15px
 /* // KAĶA PROFILS */
 #profile{display:none;background:#fff;padding:22px;border-radius:12px;box-shadow:0 2px 8px #0001}
 .profile-row{margin:10px 0}
+.profile-photo{width:220px;max-width:100%;height:auto;border-radius:12px;display:block;margin:0 auto 20px}
 .back{display:inline-block;margin-bottom:20px;cursor:pointer;font-weight:bold}
 
 /* // KĀJENE */
@@ -102,6 +103,8 @@ oninput="showCats()">
 
 <span class="back" onclick="closeProfile()">← Atpakaļ pie kaķiem</span>
 
+<img id="profilePhoto" class="profile-photo" alt="Kaķa foto">
+
 <h2 id="profileName"></h2>
 
 <div class="profile-row">
@@ -157,20 +160,20 @@ REMI – Kaķu palīdzības centrs
 
 /* // =========================================================
    // KAĶU DATI
-   // ŠEIT TAGAD IEVADĀM DZIMŠANAS DATUMU.
    // ========================================================= */
 
 const cats={
 
-Muris:{
-name:"Muris",
-sex:"Runcis",
-birthDate:"2022-05-14",
-room:"3",
-character:"Muris ir draudzīgs un ziņkārīgs kaķis.",
-feeding:"Barot saskaņā ar REMI noteikto barošanas kārtību.",
-medication:"Nav medikamentu.",
-notes:"Īpašu piezīmju nav."
+Mince:{
+name:"Mince",
+sex:"Kaķene",
+birthDate:"2017-06-26",
+photo:"mince.png",
+room:"1",
+character:"Mīļa, draudzīga.",
+feeding:"-",
+medication:"-",
+notes:"No Slokas patversmes. FIV/FeLV -/-"
 },
 
 Minka:{
@@ -303,6 +306,7 @@ document.getElementById("cats").style.display="none";
 document.getElementById("profile").style.display="block";
 
 document.getElementById("profileName").textContent="🐱 "+cat.name;
+document.getElementById("profilePhoto").src=cat.photo;
 document.getElementById("profileSex").textContent=cat.sex;
 document.getElementById("profileAge").textContent=getAge(cat.birthDate);
 document.getElementById("profileRoom").textContent=rooms[cat.room];
