@@ -29,6 +29,8 @@ input,select{padding:12px;border:1px solid #ccc;border-radius:8px;font-size:15px
 .cat-card{background:#fff;padding:18px;border-radius:12px;box-shadow:0 2px 8px #0001;cursor:pointer}
 .cat-card:hover{transform:translateY(-2px)}
 .cat-card h3{margin-top:0}
+/* // KAĶA FOTO KARTĪTĒ */
+.cat-card img{width:100%;height:180px;object-fit:cover;border-radius:10px;margin-bottom:10px}
 
 /* // KAĶA PROFILS */
 #profile{display:none;background:#fff;padding:22px;border-radius:12px;box-shadow:0 2px 8px #0001}
@@ -276,6 +278,8 @@ new Date(a.birthDate)-new Date(b.birthDate)
 document.getElementById("catList").innerHTML=list.map(cat=>`
 
 <div class="cat-card" onclick="openProfile('${cat.name}')">
+
+<img src="${cat.photo}" alt="${cat.name}">
 
 <h3>🐱 ${cat.name}</h3>
 
