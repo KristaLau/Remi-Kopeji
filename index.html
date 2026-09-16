@@ -30,11 +30,6 @@ input,select{padding:12px;border:1px solid #ccc;border-radius:8px;font-size:15px
 .profile-row{margin:10px 0}
 .back{display:inline-block;margin-bottom:20px;cursor:pointer;font-weight:bold}
 
-/* // KOPĒJU CEĻVEDIS */
-.guide{margin-top:40px}
-.guide-card{background:#fff;padding:18px;margin:12px 0;border-radius:10px}
-.guide-card h3{margin-top:0}
-
 /* // KĀJENE */
 footer{text-align:center;padding:30px;color:#777}
 </style>
@@ -42,26 +37,27 @@ footer{text-align:center;padding:30px;color:#777}
 
 <body>
 
-<!-- // GALVENE UN NAVIGĀCIJA -->
+<!-- // GALVENE -->
 <header>
 <h1>🐱 REMI</h1>
-<nav>
-<a href="#cats">🐾 Kaķi</a>
-<a href="#guide">📖 Kaķu kopēju ceļvedis</a>
-</nav>
 </header>
 
 <main>
 
 <!-- // KAĶU SADAĻA -->
 <section id="cats">
+
 <h2>Kaķu palīdzības centrs REMI</h2>
 <p>Iekšējā vietne REMI kaķu kopējiem.</p>
 
 <!-- // MEKLĒŠANA UN FILTRĒŠANA -->
 <div class="controls">
-<input id="search" type="text" placeholder="🔍 Meklēt pēc kaķa vārda..." oninput="showCats()">
 
+<input id="search" type="text"
+placeholder="🔍 Meklēt pēc kaķa vārda..."
+oninput="showCats()">
+
+<!-- // FILTRS PĒC KOPTELPAS -->
 <select id="room" onchange="showCats()">
 <option value="">Visas koptelpas</option>
 <option value="1">Koptelpa 1</option>
@@ -74,21 +70,26 @@ footer{text-align:center;padding:30px;color:#777}
 <option value="8">Karantīna 2</option>
 </select>
 
+<!-- // FILTRS PĒC DZIMUMA -->
 <select id="sex" onchange="showCats()">
 <option value="">Runči un kaķenes</option>
-<option value="Puika">Runči</option>
-<option value="Meitene">Kaķenes</option>
+<option value="Runcis">Runči</option>
+<option value="Kaķene">Kaķenes</option>
 </select>
 
+<!-- // KAĶU KĀRTOŠANA -->
 <select id="sort" onchange="showCats()">
 <option value="name">Vārds A–Z</option>
 <option value="age">Vecums</option>
 </select>
+
 </div>
 
-<!-- // VISI KAĶI -->
+<!-- // ŠEIT TIKS PARĀDĪTI VISI KAĶI -->
 <div id="catList"></div>
+
 </section>
+
 
 <!-- // KAĶA PROFILA SADAĻA -->
 <section id="profile">
@@ -97,77 +98,59 @@ footer{text-align:center;padding:30px;color:#777}
 
 <h2 id="profileName"></h2>
 
-<div class="profile-row"><b>Dzimums:</b> <span id="profileSex"></span></div>
-<div class="profile-row"><b>Vecums:</b> <span id="profileAge"></span></div>
-<div class="profile-row"><b>Istaba:</b> <span id="profileRoom"></span></div>
-<div class="profile-row"><b>Statuss:</b> Atrodas REMI</div>
+<div class="profile-row">
+<b>Dzimums:</b> <span id="profileSex"></span>
+</div>
+
+<div class="profile-row">
+<b>Vecums:</b> <span id="profileAge"></span>
+</div>
+
+<div class="profile-row">
+<b>Vieta:</b> <span id="profileRoom"></span>
+</div>
+
+<div class="profile-row">
+<b>Statuss:</b> Atrodas REMI
+</div>
 
 <hr>
 
-<div class="profile-row"><b>Raksturs:</b><br><span id="profileCharacter"></span></div>
-<div class="profile-row"><b>Barošana:</b><br><span id="profileFeeding"></span></div>
-<div class="profile-row"><b>Medikamenti:</b><br><span id="profileMedication"></span></div>
-<div class="profile-row"><b>Īpašas piezīmes:</b><br><span id="profileNotes"></span></div>
-
-</section>
-
-<!-- // KAĶU KOPĒJU CEĻVEDIS -->
-<section id="guide" class="guide">
-<h2>📖 Kaķu kopēju ceļvedis</h2>
-
-<div class="guide-card">
-<h3>🌅 Dienas kārtība</h3>
-<p>Pārbaudi visas istabas, kaķu pašsajūtu, ūdeni, barību un tualetes.</p>
+<div class="profile-row">
+<b>Raksturs:</b><br>
+<span id="profileCharacter"></span>
 </div>
 
-<div class="guide-card">
-<h3>🍽️ Barošana</h3>
-<p>Baro kaķus atbilstoši noteiktajai barošanas kārtībai un individuālajām vajadzībām.</p>
+<div class="profile-row">
+<b>Barošana:</b><br>
+<span id="profileFeeding"></span>
 </div>
 
-<div class="guide-card">
-<h3>🚽 Kaķu tualetes</h3>
-<p>Regulāri pārbaudi un iztīri kaķu tualetes.</p>
+<div class="profile-row">
+<b>Medikamenti:</b><br>
+<span id="profileMedication"></span>
 </div>
 
-<div class="guide-card">
-<h3>🧹 Tīrīšana</h3>
-<p>Uzturi istabas tīras, sausas un drošas kaķiem.</p>
+<div class="profile-row">
+<b>Īpašas piezīmes:</b><br>
+<span id="profileNotes"></span>
 </div>
 
-<div class="guide-card">
-<h3>🐱 Uzvedība</h3>
-<p>Pievērs uzmanību izmaiņām kaķa uzvedībā un pašsajūtā.</p>
-</div>
-
-<div class="guide-card">
-<h3>💊 Medikamenti</h3>
-<p>Medikamentus dod tikai atbilstoši norādījumiem un konkrētā kaķa profilā norādītajai informācijai.</p>
-</div>
-
-<div class="guide-card">
-<h3>❤️ Veselība</h3>
-<p>Ja pamani izmaiņas kaķa veselībā, informē atbildīgo personu.</p>
-</div>
-
-<div class="guide-card">
-<h3>🚨 Ārkārtas situācijas</h3>
-<p>Ārkārtas situācijā nekavējoties informē atbildīgo personu un rīkojies saskaņā ar REMI noteikto kārtību.</p>
-</div>
 </section>
 
 </main>
+
 
 <!-- // KĀJENE -->
 <footer>
 REMI – Kaķu palīdzības centrs
 </footer>
 
+
 <script>
 
 /* // =========================================================
    // KAĶU DATI
-   // ŠĪ IR GALVENĀ VIETA, KUR TU VĒLĀK MAINĪSI KAĶU INFORMĀCIJU.
    // ========================================================= */
 
 const cats={
@@ -209,8 +192,25 @@ notes:"Dod laiku pierast pie jauniem cilvēkiem."
 
 
 /* // =========================================================
+   // KOPTELPU NOSAUKUMI
+   // ŠEIT NUMURIEM PIEŠĶIRAM KOPTELPAS NOSAUKUMU.
+   // ========================================================= */
+
+const rooms={
+"1":"Koptelpa 1",
+"2":"Koptelpa 2",
+"3":"Koptelpa 3",
+"4":"Koptelpa 4",
+"5":"Koptelpa 5",
+"6":"Koptelpa 6",
+"7":"Karantīna 1",
+"8":"Karantīna 2"
+};
+
+
+/* // =========================================================
    // PARĀDA KAĶU SARAKSTU
-   // KAĶU KARTĪTES.
+   // ŠIS KODS IZVEIDO KAĶU KARTĪTES UN FILTRĒ TĀS.
    // ========================================================= */
 
 function showCats(){
@@ -226,20 +226,30 @@ cat.name.toLowerCase().includes(search) &&
 (!sex || cat.sex===sex)
 );
 
+
+/* // KĀRTO KAĶUS PĒC VĀRDA */
 if(sort==="name"){
 list.sort((a,b)=>a.name.localeCompare(b.name));
 }
 
+
+/* // KĀRTO KAĶUS PĒC VECUMA */
 if(sort==="age"){
 list.sort((a,b)=>parseInt(a.age)-parseInt(b.age));
 }
 
+
+/* // IZVEIDO KAĶU KARTĪTES */
 document.getElementById("catList").innerHTML=list.map(cat=>`
 
 <div class="cat-card" onclick="openProfile('${cat.name}')">
+
 <h3>🐱 ${cat.name}</h3>
+
 <p>${cat.sex} · ${cat.age}</p>
-<p>📍 Istaba ${cat.room}</p>
+
+<p>📍 ${rooms[cat.room]}</p>
+
 </div>
 
 `).join("");
@@ -249,7 +259,6 @@ document.getElementById("catList").innerHTML=list.map(cat=>`
 
 /* // =========================================================
    // ATVĒRT KAĶA PROFILU
-   // Nospiežot uz kaķa kartītes, tiek parādīta pilna informācija.
    // ========================================================= */
 
 function openProfile(name){
@@ -257,13 +266,12 @@ function openProfile(name){
 const cat=cats[name];
 
 document.getElementById("cats").style.display="none";
-document.getElementById("guide").style.display="none";
 document.getElementById("profile").style.display="block";
 
 document.getElementById("profileName").textContent="🐱 "+cat.name;
 document.getElementById("profileSex").textContent=cat.sex;
 document.getElementById("profileAge").textContent=cat.age;
-document.getElementById("profileRoom").textContent="Istaba "+cat.room;
+document.getElementById("profileRoom").textContent=rooms[cat.room];
 document.getElementById("profileCharacter").textContent=cat.character;
 document.getElementById("profileFeeding").textContent=cat.feeding;
 document.getElementById("profileMedication").textContent=cat.medication;
@@ -276,20 +284,18 @@ window.scrollTo(0,0);
 
 /* // =========================================================
    // AIZVER KAĶA PROFILU
-   // Atgriežas atpakaļ uz kaķu sarakstu.
    // ========================================================= */
 
 function closeProfile(){
 
 document.getElementById("profile").style.display="none";
 document.getElementById("cats").style.display="block";
-document.getElementById("guide").style.display="block";
 
 }
 
 
 /* // =========================================================
-   // PALAIŽ KAĶU SARAKSTU, KAD LAPA TIEK ATVĒRTA
+   // PALAIŽ KAĶU SARAKSTU
    // ========================================================= */
 
 showCats();
