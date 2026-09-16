@@ -11,7 +11,7 @@
 body{margin:0;font-family:Arial,sans-serif;background:#f7f4ef;color:#333}
 header{background:#fff;padding:20px;text-align:center;border-bottom:1px solid #ddd}
    
-   /* // REMI LOGO */
+/* // REMI LOGO */
 .logo{max-width:120px;height:auto}
 .subtitle{font-size:18px;font-weight:bold;color:#555;margin-top:8px}
    
@@ -157,6 +157,7 @@ REMI – Kaķu palīdzības centrs
 
 /* // =========================================================
    // KAĶU DATI
+   // ŠEIT TAGAD IEVADĀM DZIMŠANAS DATUMU.
    // ========================================================= */
 
 const cats={
@@ -164,7 +165,7 @@ const cats={
 Muris:{
 name:"Muris",
 sex:"Runcis",
-age:"4 gadi",
+birthDate:"2022-05-14",
 room:"3",
 character:"Muris ir draudzīgs un ziņkārīgs kaķis.",
 feeding:"Barot saskaņā ar REMI noteikto barošanas kārtību.",
@@ -175,7 +176,7 @@ notes:"Īpašu piezīmju nav."
 Minka:{
 name:"Minka",
 sex:"Kaķene",
-age:"2 gadi",
+birthDate:"2024-03-20",
 room:"1",
 character:"Minka ir mierīga un mīļa.",
 feeding:"Barot saskaņā ar REMI noteikto barošanas kārtību.",
@@ -186,7 +187,7 @@ notes:"Patīk mierīga uzmanība."
 Pūka:{
 name:"Pūka",
 sex:"Kaķene",
-age:"8 gadi",
+birthDate:"2018-08-10",
 room:"2",
 character:"Pūka ir mierīga un neatkarīga.",
 feeding:"Barot saskaņā ar REMI noteikto barošanas kārtību.",
@@ -198,8 +199,33 @@ notes:"Dod laiku pierast pie jauniem cilvēkiem."
 
 
 /* // =========================================================
+   // APRĒĶINA KAĶA VECUMU
+   // ŠIS KODS AUTOMĀTISKI APRĒĶINA PILNOS GADUS.
+   // ========================================================= */
+
+function getAge(birthDate){
+
+const birth=new Date(birthDate);
+const today=new Date();
+
+let age=today.getFullYear()-birth.getFullYear();
+
+const monthDifference=today.getMonth()-birth.getMonth();
+
+if(
+monthDifference<0 ||
+(monthDifference===0 && today.getDate()<birth.getDate())
+){
+age--;
+}
+
+return age+" gadi";
+
+}
+
+
+/* // =========================================================
    // KOPTELPU NOSAUKUMI
-   // ŠEIT NUMURIEM PIEŠĶIRAM KOPTELPAS NOSAUKUMU.
    // ========================================================= */
 
 const rooms={
@@ -216,7 +242,7 @@ const rooms={
 
 /* // =========================================================
    // PARĀDA KAĶU SARAKSTU
-   // ŠIS KODS IZVEIDO KAĶU KARTĪTES UN FILTRĒ TĀS.
+   // IZVEIDO KAĶU KARTĪTES UN FILTRĒ TĀS.
    // ========================================================= */
 
 function showCats(){
@@ -241,7 +267,9 @@ list.sort((a,b)=>a.name.localeCompare(b.name));
 
 /* // KĀRTO KAĶUS PĒC VECUMA */
 if(sort==="age"){
-list.sort((a,b)=>parseInt(a.age)-parseInt(b.age));
+list.sort((a,b)=>
+new Date(a.birthDate)-new Date(b.birthDate)
+);
 }
 
 
@@ -252,7 +280,7 @@ document.getElementById("catList").innerHTML=list.map(cat=>`
 
 <h3>🐱 ${cat.name}</h3>
 
-<p>${cat.sex} · ${cat.age}</p>
+<p>${cat.sex} · ${getAge(cat.birthDate)}</p>
 
 <p>📍 ${rooms[cat.room]}</p>
 
@@ -276,7 +304,7 @@ document.getElementById("profile").style.display="block";
 
 document.getElementById("profileName").textContent="🐱 "+cat.name;
 document.getElementById("profileSex").textContent=cat.sex;
-document.getElementById("profileAge").textContent=cat.age;
+document.getElementById("profileAge").textContent=getAge(cat.birthDate);
 document.getElementById("profileRoom").textContent=rooms[cat.room];
 document.getElementById("profileCharacter").textContent=cat.character;
 document.getElementById("profileFeeding").textContent=cat.feeding;
