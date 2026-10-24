@@ -1154,45 +1154,70 @@ document.getElementById("catList").innerHTML=list.map(cat=>`
 
 }
 
+// OPEN A CAT PROFILE
+function openProfile(name, fromHistory = false){
 
-/* // =========================================================
-   // ATVĒRT KAĶA PROFILU
-   // ========================================================= */
+    const cat = cats[name];
 
-function openProfile(name){
+    if(!cat) return;
 
-const cat=cats[name];
+    // Save the profile in browser history
+    if(!fromHistory){
+        history.pushState(
+            { profile: name },
+            "",
+            "#cat=" + encodeURIComponent(name)
+        );
+    }
 
-document.getElementById("cats").style.display="none";
-document.getElementById("profile").style.display="block";
+    currentProfile = name;
 
-document.getElementById("profileName").textContent=" "+cat.name;
-document.getElementById("profilePhoto").src=cat.photo;
-document.getElementById("profileSex").textContent=cat.sex;
-document.getElementById("profileAge").textContent=getAge(cat.birthDate);
-document.getElementById("profileRoom").textContent=rooms[cat.room];
-document.getElementById("profileCharacter").textContent=cat.character;
-document.getElementById("profileFeeding").textContent=cat.feeding;
-document.getElementById("profileHealth").textContent=cat.health;
-document.getElementById("profileNotes").textContent=cat.notes;
+    document.getElementById("cats").style.display = "none";
+    document.getElementById("profile").style.display = "block";
 
-window.scrollTo(0,0);
+    document.getElementById("profileName").textContent = " " + cat.name;
+    document.getElementById("profilePhoto").src = cat.photo;
+    document.getElementById("profileSex").textContent = cat.sex;
+    document.getElementById("profileAge").textContent = getAge(cat.birthDate);
+    document.getElementById("profileRoom").textContent = rooms[cat.room];
+    document.getElementById("profileCharacter").textContent = cat.character;
+    document.getElementById("profileFeeding").textContent = cat.feeding;
+    document.getElementById("profileHealth").textContent = cat.health;
+    document.getElementById("profileNotes").textContent = cat.notes;
 
+    window.scrollTo(0, 0);
 }
 
 
-/* // =========================================================
-   // AIZVER KAĶA PROFILU
-   // ========================================================= */
-
+// CLOSE A CAT PROFILE
 function closeProfile(){
 
-document.getElementById("profile").style.display="none";
-document.getElementById("cats").style.display="block";
-
+    // Go back through browser history
+    if(currentProfile){
+        history.back();
+    } else {
+        document.getElementById("profile").style.display = "none";
+        document.getElementById("cats").style.display = "block";
+    }
 }
 
+// HANDLE THE BROWSER BACK AND FORWARD BUTTONS
+let currentProfile = null;
 
+window.addEventListener("popstate", function(event){
+
+    // Reopen the profile when pressing Forward
+    if(event.state && event.state.profile){
+        openProfile(event.state.profile, true);
+    } else {
+        // Return to the cat list when pressing Back
+        currentProfile = null;
+        document.getElementById("profile").style.display = "none";
+        document.getElementById("cats").style.display = "block";
+        window.scrollTo(0, 0);
+    }
+});
+   
 /* // =========================================================
    // PALAIŽ KAĶU SARAKSTU
    // ========================================================= */
